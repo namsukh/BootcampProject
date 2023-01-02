@@ -1,6 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { useLocation, NavLink,useParams } from "react-router-dom";
 
 // react-bootstrap components
 import {
@@ -14,13 +15,14 @@ import {
 
 function Create(prop) {
 
-
+  const params=useParams();
+  console.log("id",params.id);
   const[state,setState]=useState(false);
  
 
   const[task,setTask]=useState();
   useEffect(() => {
-     axios.get(`${process.env.REACT_APP_SERVER_URL}/task/`+prop._id).then((res) => {
+     axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/task/`+params.id).then((res) => {
     const data=res.data;
       setTask(data);
    
@@ -101,9 +103,9 @@ function Create(prop) {
                   <Button
                     className="btn-fill pull-right"
                     type="submit"
-                    variant="info"
+                    variant="info" 
                   >
-                    Update Profile
+                    Update Task
                   </Button>
                   <div className="clearfix"></div>
                 </Form>

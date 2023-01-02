@@ -12,7 +12,7 @@ function TableList() {
   const [state, setState] = useState(false);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/task/all`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/task/allTask`).then((res) => {
       setTask(res.data);
     });
   }, [state]);

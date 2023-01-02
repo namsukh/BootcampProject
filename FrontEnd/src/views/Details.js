@@ -6,7 +6,11 @@ import "./icon.css"
 import Create from './Create';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { useLocation, NavLink,useParams } from "react-router-dom";
+
+import { Nav } from "react-bootstrap";
 function Details(prop) {
+  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -40,6 +44,15 @@ function Details(prop) {
         {prop.dtl}
         <Modal.Title>Address</Modal.Title>
         Address:  {prop.address}
+
+        <NavLink
+                    to={"/admin/create/"+prop.id}
+                    className="nav-link"
+                    activeClassName="active"
+                   >
+                   Edit
+                   
+                  </NavLink>
         </Modal.Body>
         
         <Modal.Footer>

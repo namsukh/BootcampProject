@@ -58,7 +58,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/create",
+    path: "/create/:id",
     name: "Edit Task",
     icon: "nc-icon nc-notes",
     component: Create,

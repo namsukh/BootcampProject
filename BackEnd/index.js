@@ -1,32 +1,12 @@
-require("dotenv").config();
-var express= require("express")
+const { port } = require('./config/vars');
+const jwt = require('jsonwebtoken');
 
-var mongoose =require("mongoose")
-var app=express();
-var cors =require('cors')
-mongoose.connect("mongodb://"+process.env.urlDatabse)
+const mongoose = require('./config/mongoose');
+const db=mongoose.connect();
 
-const db=mongoose.connection
-const bodyParser = require('body-parser');
+const app = require('./config/express');
 
-app.use(bodyParser.json());
-app.use(express.json())
-//app.use(express.params)
-app.use(express.urlencoded({ extended: true }));
-
-app.use(cors({
-    origin:"*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-}))
-db.once('open',()=>console.log("Connected to data base"))
-app.get('/a',(req,res)=>{
-
-    res.send("HI Welkom");
-})
-const task=require("./routes/task")
-app.use('/task',task);
-
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("Server started ");
- 
+   
 })

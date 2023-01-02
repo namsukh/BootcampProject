@@ -46,7 +46,7 @@ const renderTooltip = (props) => (
     }
     else{
       
-     axios.patch(`http://localhost:3000/task/update/`+id,updated,).then((res) => {
+     axios.patch(`http://localhost:3000/admin/task/update/`+id,updated,).then((res) => {
      
      toast.success("Updated",{position: "top-right",
      autoClose: 5000,

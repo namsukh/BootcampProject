@@ -3,6 +3,7 @@ import Details from "./Details";
 import axios from "axios";
 import { useState,useEffect } from "react";
 import UpdateTask from "./UpdateTask";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { faUserXmark } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +20,7 @@ function TaskDsp({ obj, setState ,state}) {
   const[worker,getWorker]=useState();
   const[localState,setLocalSate]=useState(false);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/task/TasksAssginedWorker/`+obj._id).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/task/AssignedWorker/`+obj._id).then((res) => {
     const data=res.data;  
    
     if(data[0]!=null){getWorker(data[0].workerID);}
@@ -45,6 +46,7 @@ function TaskDsp({ obj, setState ,state}) {
           name={"Details"}
           dtl={obj.Details}
           address={obj.Address}
+          id={obj._id}
         ></Details>
       </td>
       <td>
