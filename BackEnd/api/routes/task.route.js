@@ -13,6 +13,7 @@ const getTaskController=require('../controllers/Admin/task/getTask.controller')
 
 
 router.route('/allTask').get(controller.allTask);
+router.route('/View').get(controller.allTask);
 router.route('/createTask').post(controllerCreate.createTask);
 router.route("/:id").delete(controllerDel.delTask);
 router.route("/updateTaskWorker/:id").patch(updateTaskWorker.updateTaskWorker )

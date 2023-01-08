@@ -21,8 +21,10 @@ app.get('/a',(req,res)=>{
 
     res.send("HI Welkom");
 })
-const admin=require("../api/routes/index")
+const admin=require("../api/routes/Admin")
+const user=require('../api/routes/Front/user')
 app.use('/admin',admin);
+app.use('/user',user);
 
 
 module.exports = app;

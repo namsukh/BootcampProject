@@ -14,7 +14,7 @@ const TaskSchema = new mongoose.Schema({
 ,required:true },
   Category: {type: String,required :true },
   status: {type:String, enum:["Pending","Processing","Completed","Cancelled"] , default:"Pending"},
-  userID:{ type:mongoose.SchemaTypes.ObjectId},
+  userID:{ type:mongoose.SchemaTypes.ObjectId,required:true,ref: "User"},
 });
 
 module.exports=mongoose.model("Task",TaskSchema)

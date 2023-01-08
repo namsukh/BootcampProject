@@ -1,0 +1,22 @@
+.homContainer{
+    background-color: #FA5300;
+   
+    width: 95%;
+    justify-content: center;
+    display: flex;
+}
+.con1
+{
+    
+    justify-content:center;
+    display: flex;
+
+}
+.homeBtn
+{
+   
+    
+    color: white;
+    border-color: white;
+    
+}

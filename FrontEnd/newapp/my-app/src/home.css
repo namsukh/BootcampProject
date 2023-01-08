@@ -1,0 +1,12 @@
+.containe
+{
+    color: blueviolet;
+    display: flex;
+    justify-content:flex-end;
+}
+.navbar-dark
+{
+    padding-right:5%;
+    display: flex;
+    justify-content:flex-end;
+}

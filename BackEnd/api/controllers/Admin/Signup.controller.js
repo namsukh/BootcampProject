@@ -23,7 +23,7 @@ try {
     });
 
     const token = jwt.sign(
-      { user_id: Admin._id },
+      { email: email },
       process.env.TOKEN_KEY,
       {
         expiresIn: "2h",
