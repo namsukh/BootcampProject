@@ -7,6 +7,7 @@ try {
     const  password = req.body.password;
     const  name = req.body.name;
     const type= req.body.type;
+    const category=req.body.category;
 
     if (!(email && password && name && type)) {
       res.status(400).send("All input are required");
@@ -25,6 +26,7 @@ try {
       password: hashPassword,
       name:name,
       type:type,
+      category:category
 
 
     });

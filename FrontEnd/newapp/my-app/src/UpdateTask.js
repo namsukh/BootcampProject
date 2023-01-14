@@ -10,6 +10,8 @@ import { faCheckDouble } from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 
 //<FontAwesomeIcon icon="fa-solid fa-circle-check" />
 import "./icon.css"
@@ -83,7 +85,7 @@ const renderTooltip = (props) => (
       
     }
    ).catch(err=>{
-    toast.error("Error",{position: "top-right",
+    toast.error("Error" +err.message,{position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,

@@ -10,6 +10,7 @@ import { faUserXmark } from '@fortawesome/free-solid-svg-icons'
 import { faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
+import StarsRating from "stars-rating";
 
 function TaskDsp({ obj, setState ,state}) {
 
@@ -96,7 +97,18 @@ function TaskDsp({ obj, setState ,state}) {
           name={"Cancel"}
         ></UpdateTask>
       </td>
-      
+      <td>
+           <StarsRating
+          count={5}
+          color2={"orange"}
+          color1={"Black"}
+          edit={false}
+          value={obj.Rating}
+         
+          size={24}
+          //color2={"#ffd700"}
+        />
+            </td>
     </tr>
   );
 }

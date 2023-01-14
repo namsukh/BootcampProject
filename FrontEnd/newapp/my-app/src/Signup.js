@@ -46,6 +46,7 @@ export default function Signup() {
       password: password.current.value,
       name: name.current.value,
       type: state ? "Worker" : "User",
+      category:Category
     };
     console.log(credentials);
     axios
@@ -159,11 +160,11 @@ export default function Signup() {
                           id="c"
                             type="radio"
                             name="category"
-                            value="Plumbing"
-                            onClick={()=>{setCat("Plumbing")}}
+                            value="Plumber"
+                            onClick={()=>{setCat("Plumber")}}
                             
                           />
-                            <label for="User">Plumbing</label>
+                            <label for="User">Plumber</label>
                           <br /> {" "}
                           <input
                           id="b"
@@ -189,7 +190,7 @@ export default function Signup() {
                     </Form.Group>
                       <div className="d-grid">
                         <Button variant="primary" type="submit">
-                          Login
+                          Signup
                         </Button>
                       </div>
                     </Form>

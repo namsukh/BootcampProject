@@ -6,7 +6,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 // react-bootstrap components
 import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
-import { updateConstructorTypeNode } from "typescript";
 import { Dropdown } from "react-bootstrap";
 
 function Signup() {

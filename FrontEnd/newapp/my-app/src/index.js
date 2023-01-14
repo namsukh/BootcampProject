@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import Login from './Login';
-import reportWebVitals from './reportWebVitals';
 import Home from './home';
 import Signup from './Signup';
 import PostTask from './PostTask';
 import MyTask from './MyTask';
 import Edit from './Edit';
+import WorkerFindTask from './WorkerFindTask';
+import WorkersBucket from './WorkersBucket';
+import User from './UserProfile';
+import PublicProfile from './PublicProfile';
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,6 +26,10 @@ root.render(
                  <Route exact path='/postTask' element={<PostTask/>}></Route>
                  <Route exact path='/myTask' element={<MyTask/>}></Route>
                  <Route exact path='/Edit/:id' element={<Edit/>}></Route>
+                 <Route exact path='/myBucket' element={<WorkersBucket/>}></Route>
+                 <Route exact path='/findTask' element={<WorkerFindTask/>}></Route>
+                 <Route exact path='/user' element={<User></User>}></Route>
+                 <Route exact path='/publicProfile' element={<PublicProfile></PublicProfile>}></Route>
           </Routes>
   </BrowserRouter>
 
@@ -32,7 +39,3 @@ root.render(
  
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

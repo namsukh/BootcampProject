@@ -1,20 +1,97 @@
 import React from "react";
-
+import { useState, useEffect, useRef } from "react";
 // react-bootstrap components
-import {
-  Button,
-  Card,
-  Form,
-  Container,
-  Row,
-  Col
-} from "react-bootstrap";
+import axios from "axios";
+import { useLocation, NavLink,useParams } from "react-router-dom";
 
-function User() {
+import { ToastContainer, toast } from "react-toastify";
+
+import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
+function UserProfile(prop) {
+  const params=useParams();
+
+  const [type, setType] = useState(localStorage.getItem("type"));
+  const [Category, setCat] = useState();
+  const [iD, setID] = useState(params.id);
+  const [file,setFile]=useState();
+  const [user, setUser] = useState();
+  const name = useRef();
+  const phone = useRef();
+  const cnic = useRef();
+  console.log("IDDD",params.id)
+  const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
+ 
+  function uploadhandler(event) {
+    let formData = new FormData();
+    formData.append("img",event.target.files[0])
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/user/upload/`,formData,config)
+      .then((res) => {
+        const data = res.data;
+        //setUser(data);
+        console.log(data);
+      });
+  }
+  useEffect(()=>{
+    setID("http://localhost:3000/"+user?._id+".jpg");
+    console.log(" id ",iD)
+  },[user])
+  useEffect( () => {
+     axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/userProfile/`+iD)
+      .then((res) => {
+        const data = res.data;
+        setUser(data);
+        setType(res.data.type)
+        console.log(data)
+      
+       
+      });
+  }, []);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const usr = {
+      name: name.current.value,
+      phone: phone.current.value,
+      category: Category,
+      cnic: cnic.current.value,
+    };
+    axios
+      .patch(`http://localhost:3000/admin/updateUser/`, usr, config)
+      .then((res) => {
+        toast.success("Updated", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        //handleClose()
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        //  handleClose()
+      });
+  }
   return (
     <>
-      <Container fluid>
-        <Row>
+    {console.log(user?._id)}
+      <Container>
+        <Row className="vh-100 d-flex justify-content-center align-items-center">
           <Col md="8">
             <Card>
               <Card.Header>
@@ -23,125 +100,112 @@ function User() {
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
-                        <label>Company (disabled)</label>
+                        <label>Name</label>
                         <Form.Control
-                          defaultValue="Creative Code Inc."
-                          disabled
+                          defaultValue={user?.name}
                           placeholder="Company"
                           type="text"
+                          ref={name}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="pl-1" md="6">
                       <Form.Group>
-                        <label>Username</label>
+                        <label>Email</label>
                         <Form.Control
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Form.Control
-                          placeholder="Email"
+                          defaultValue={user?.email}
                           type="email"
+                          disabled
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Phone Number</label>
+                        <Form.Control
+                          defaultValue={user?.phone}
+                          type="tel"
+                          ref={phone}
+                          pattern="[0-9]{11}"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Cnic</label>
+                        <Form.Control
+                        ref={cnic}
+                          defaultValue={user?.cnic}
+                          pattern="[0-9]{13}"
+                          type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
                     <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>First Name</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <Form.Group>
-                        <label>Last Name</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <Form.Group>
-                        <label>Address</label>
-                        <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="4">
-                      <Form.Group>
-                        <label>City</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="4">
-                      <Form.Group>
-                        <label>Country</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Postal Code</label>
-                        <Form.Control
-                          placeholder="ZIP Code"
-                          type="number"
-                        ></Form.Control>
-                      </Form.Group>
+                      {user && type == "Worker" && (
+                        <>
+                          <p>Select Category :</p> {" "}
+                          <input
+                            id="c"
+                            type="radio"
+                            name="category"
+                            value="Plumber"
+                            defaultChecked={
+                              user?.category == "Plumber" ? true : false
+                            }
+                            onClick={() => {
+                              setCat("Plumber");
+                            }}
+                          />
+                            <label for="User">Plumber</label>
+                          <br /> {" "}
+                          <input
+                            id="b"
+                            type="radio"
+                            name="category"
+                            value="Electrician"
+                            onClick={() => {
+                              setCat("Electrician");
+                            }}
+                            defaultChecked={
+                              user?.category == "Electrician" ? true : false
+                            }
+                          />
+                            <label for="User">Electrician</label>
+                          <br /> {" "}
+                          <input
+                            type="radio"
+                            id="a"
+                            name="category"
+                            value="General"
+                            onClick={() => {
+                              setCat("General");
+                            }}
+                            defaultChecked={
+                              user?.category == "General" ? true : false
+                            }
+                          />
+                            <label for="User">General</label>
+                          <br /> {" "}
+                        </>
+                      )}
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="12">
-                      <Form.Group>
-                        <label>About Me</label>
-                        <Form.Control
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                          that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          as="textarea"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
+
                   <Button
                     className="btn-fill pull-right"
                     type="submit"
                     variant="info"
+                    
                   >
-                    Update Profile
+                    Ok
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
@@ -150,63 +214,34 @@ function User() {
           </Col>
           <Col md="4">
             <Card className="card-user">
-              <div className="card-image">
-                <img
-                  alt="..."
-                  src={require("assets/img/photo-1431578500526-4d9613015464.jpeg")}
-                ></img>
-              </div>
+            
               <Card.Body>
                 <div className="author">
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    <img
+                 
+                  { (iD)&&( <img
+                    style={{width:"200px",height:"200px",borderRadius:"50%"}}
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/faces/face-3.jpg")}
-                    ></img>
-                    <h5 className="title">Mike Andrew</h5>
-                  </a>
-                  <p className="description">michael24</p>
+                      
+                       src={iD}
+                    ></img>)}
+                   
                 </div>
-                <p className="description text-center">
-                  "Lamborghini Mercy <br></br>
-                  Your chick she so thirsty <br></br>
-                  I'm in that two seat Lambo"
-                </p>
+                {/* <input
+        type="file"
+        name="myImage"
+      
+      /> */}
+              
               </Card.Body>
-              <hr></hr>
-              <div className="button-container mr-auto ml-auto">
-                <Button
-                  className="btn-simple btn-icon"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  variant="link"
-                >
-                  <i className="fab fa-facebook-square"></i>
-                </Button>
-                <Button
-                  className="btn-simple btn-icon"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  variant="link"
-                >
-                  <i className="fab fa-twitter"></i>
-                </Button>
-                <Button
-                  className="btn-simple btn-icon"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  variant="link"
-                >
-                  <i className="fab fa-google-plus-square"></i>
-                </Button>
-              </div>
+            
             </Card>
           </Col>
         </Row>
+        <ToastContainer />
       </Container>
     </>
   );
 }
 
-export default User;
+export default UserProfile;

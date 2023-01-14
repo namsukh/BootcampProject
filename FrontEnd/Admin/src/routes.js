@@ -23,7 +23,7 @@ import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
-
+import AllUsers from "views/AllUsers";
 const dashboardRoutes = [
   {
     path: "/login",
@@ -42,7 +42,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/user",
+    path: "/user/:id",
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
@@ -87,6 +87,13 @@ const dashboardRoutes = [
     icon: "nc-icon nc-bell-55",
     showInSideBar: true,
     component: Notifications,
+    layout: "/admin"
+  },{
+    path: "/allUsers",
+    name: "Users",
+    icon: "nc-icon nc-bell-55",
+    showInSideBar: true,
+    component: AllUsers,
     layout: "/admin"
   }
 ];

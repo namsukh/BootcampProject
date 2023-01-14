@@ -8,6 +8,7 @@ const db=mongoose.connect();
 
 app.use(bodyParser.json());
 app.use(express.json())
+app.use("/",express.static("img"))
 
 
 app.use(express.urlencoded({ extended: true }));

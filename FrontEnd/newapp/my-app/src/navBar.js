@@ -1,8 +1,16 @@
 import { useEffect ,useState} from "react";
 import { useNavigate } from "react-router-dom";
-
 function NavBar()
 {
+  let navigate = useNavigate();
+  useEffect(()=>{
+    if((localStorage.getItem("token"))==null)
+    {
+      navigate('/Login')
+
+    }
+  },[])
+ 
 
   const [userBtn,setUserBtn]=useState()
   const [btnLink,setbtnLink]=useState()
@@ -15,16 +23,16 @@ function NavBar()
     else
     {
       setUserBtn("Find a Task");
-    
+      setbtnLink("/findTask")
     }
   },[])
    
   
-    let navigate = useNavigate();
+    //let navigate = useNavigate();
 
     return(
         <>
-        <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <nav className="navbar navbar-expand-sm bg-dark navbar-dark " >
         
         <div className="containe">
             
@@ -34,6 +42,11 @@ function NavBar()
                 Home
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link" href='/user'>
+                Profile
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href={btnLink}>
                 {userBtn
@@ -41,7 +54,7 @@ function NavBar()
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/myTask">
+              <a class="nav-link" href={(localStorage.getItem("type")=="User")?("/myTask"):("/myBucket")}>
                 My Task
               </a>
             </li>
@@ -50,6 +63,7 @@ function NavBar()
           navigate('/Login');
           localStorage.removeItem("token");
           localStorage.removeItem("type");
+          localStorage.removeItem("category");
 
 
         }}>

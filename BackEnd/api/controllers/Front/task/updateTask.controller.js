@@ -7,10 +7,10 @@ exports.updateTask= async (req, res) => {
       res.tsk.TaskName = req.body.TaskName;
     }
     if (req.body.status != null) {
-      if(res.tsk.status=="Completed"){
-        return res.status(400).send("Cannot Update")
-      }
-      res.tsk.status = req.body.status;
+    
+        res.tsk.status = req.body.status;
+     
+     
       if (res.tsk.status == "Pending") {
         const count = await workerTask.deleteOne({ taskID: res.tsk._id });
         console.log(count);
@@ -21,6 +21,9 @@ exports.updateTask= async (req, res) => {
       //     res.send(count)
       //     console.log(count)
       // }
+    }
+    if (req.body.Rating != null) {
+      res.tsk.Rating = req.body.Rating;
     }
     if (req.body.Category != null) {
       res.tsk.Category = req.body.Category;
@@ -35,7 +38,8 @@ exports.updateTask= async (req, res) => {
       res.tsk.Address = req.body.Address;
     }
     try {
-      if(res.tsk.status=="Completed"){
+     
+       if(req.body.status=="Completed"&&req.user=="User"){
         return res.status(400).json({message:"Task Status Can't be Changed"})
       }
       else{

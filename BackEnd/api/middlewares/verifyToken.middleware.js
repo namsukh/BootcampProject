@@ -12,11 +12,17 @@ exports.verifyToken = (req, res, next)  =>  {
       const token= authHeader.split(' ')[1]
        jwt.verify(token, process.env.TOKEN_KEY,(err,user)=>{
         req.user = user;
+        if(!user)
+        {return res.status(401).send("Invlaid Token ");}
+        else
+        {
+          next();
+        }
         console.log("user is ",user)
        });
       
     } catch (err) {
-      return res.status(401).send("Invlaid Token ");
+   //   return res.status(401).send("Invlaid Token ");
     }
-     next();
+   
   };

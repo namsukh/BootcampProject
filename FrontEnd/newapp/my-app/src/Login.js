@@ -1,11 +1,13 @@
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 import { useRef,useEffect } from "react";
 import axios from "axios";
 export default function Login() {
     let navigate = useNavigate();
+    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
     const email=useRef();
     const password=useRef();
@@ -17,9 +19,11 @@ export default function Login() {
         const credentials={email:email.current.value,password:password.current.value}
         axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login/`,credentials).then((res) => {
             const data=res.data;  
+            console.log("data",data)
           // console.log("tojen",data.token);
            localStorage.setItem("token", data.token);
            localStorage.setItem("type", data.type);
+           localStorage.setItem("category", data.category);
            console.log("token is ",localStorage.getItem("token"));
            console.log("Type is ",localStorage.getItem("type"));
          //   navigate.push("/user/"+data)
@@ -27,6 +31,14 @@ export default function Login() {
             
             })
             .catch(err=>{
+              toast.error("Invaild credentials",{position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",});
                 console.log("Invalid user")
             })
         
@@ -62,11 +74,7 @@ export default function Login() {
                         className="mb-3"
                         controlId="formBasicCheckbox"
                       >
-                        <p className="small">
-                          <a className="text-primary" href="#!">
-                            Forgot password?
-                          </a>
-                        </p>
+                      
                       </Form.Group>
                       <div className="d-grid">
                         <Button variant="primary" type="submit">
@@ -89,6 +97,8 @@ export default function Login() {
           </Col>
         </Row>
       </Container>
+      <ToastContainer />
+
     </div>
   );
 }

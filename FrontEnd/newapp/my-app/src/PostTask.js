@@ -19,9 +19,10 @@ import {
 
 function PostTask(prop) {
     const [date, setDate] = useState(new Date());
-    console.log("Date is ",date)
+    console.log("Date is ",`${date.getDate()}-`+`${date.getMonth()+1}-`+`${date.getFullYear()}`)
+    
   const params=useParams();
-  const[state,setState]=useState(false);
+  const[cat,setCat]=useState();
   const[token,setToken]=useState(localStorage.getItem('token'));
  // const [ ,,,]=useRef();
   //const [taskNameRef,s]=useRef();
@@ -37,7 +38,7 @@ function PostTask(prop) {
  
   function submit(e){
     e.preventDefault();
-   const tsk ={TaskName:taskNameRef.current.value,Details:detailsRef.current.value,Category:categoryRef.current.value,Date:date,Address:addressRef.current.value}
+   const tsk ={TaskName:taskNameRef.current.value,Details:detailsRef.current.value,Category:cat,Date:date,Address:addressRef.current.value}
       
       axios.post(`http://localhost:3000/user/task/createTask`,tsk,config).then((res) => {
       
@@ -116,12 +117,36 @@ function PostTask(prop) {
                     <Col className="pr-1" md="6">
                       <Form.Group>
                         <label >Category</label>
-                        <Form.Control
-                        ref={categoryRef}
-                          defaultValue={task?.Category}
-                          placeholder="Category"
-                          type="text"
-                        ></Form.Control>
+                        <p>Select Category :</p> {" "}
+                          <input
+                          id="c"
+                            type="radio"
+                            name="category"
+                            value="Plumber"
+                            onClick={()=>{setCat("Plumber")}}
+                            
+                          />
+                            <label for="User">Plumbing</label>
+                          <br /> {" "}
+                          <input
+                          id="b"
+                            type="radio"
+                            name="category"
+                            value="Electrician"
+                            onClick={()=>{setCat("Electrician")}}
+                            
+                          />
+                            <label for="User">Electrician</label>
+                          <br /> {" "}
+                          <input
+                            type="radio"
+                            id="a"
+                            name="category"
+                            value="General"
+                            onClick={()=>{setCat("General")}}
+                          />
+                            <label for="User">General</label>
+                          <br /> {" "}
                       </Form.Group>
                     </Col>
                     </Row>
@@ -129,7 +154,7 @@ function PostTask(prop) {
                     <Col className="pr-1" md="6">
                       <Form.Group>
                         <label >Date</label>
-                        <DatePicker selected={date} onChange={(date) => {setDate(date);console.log(date)}} />
+                        <DatePicker  selected={date} onChange={(date) => {setDate(date);console.log(date)}} format="dd-MM-yyyy" />
                         
                       </Form.Group>
                     </Col>

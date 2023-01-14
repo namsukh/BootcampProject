@@ -46,7 +46,7 @@ function Details(prop) {
         Address:  {prop.address}
 
         <NavLink
-                    to={"/admin/create/"+prop.id}
+                    to={"/admin/user/"+prop.id}
                     className="nav-link"
                     activeClassName="active"
                    >

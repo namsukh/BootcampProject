@@ -12,9 +12,10 @@ const TaskSchema = new mongoose.Schema({
   },
   Date: { type: Date
 ,required:true },
-  Category: {type: String,required :true },
+  Category: {type: String,required :true , enum:["Plumber","Electrician","General"]},
   status: {type:String, enum:["Pending","Processing","Completed","Cancelled"] , default:"Pending"},
   userID:{ type:mongoose.SchemaTypes.ObjectId,required:true,ref: "User"},
+  Rating:{type:Number}
 });
 
 module.exports=mongoose.model("Task",TaskSchema)
