@@ -62,7 +62,7 @@ function UserProfile(prop) {
       .then((res) => {
         toast.success("Updated", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -76,7 +76,7 @@ function UserProfile(prop) {
       .catch((err) => {
         toast.error(err.message, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

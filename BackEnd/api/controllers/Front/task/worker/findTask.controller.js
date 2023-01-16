@@ -1,7 +1,7 @@
 const task = require("../../../../models/task.model");
 
 exports.findTask=async (req, res) => {
-    const {limit=10,page=1}=req.body;
+    const {limit=5,page=1}=req.body;
     //const page=req.params.page
     try{
     const cat=req.body.category;

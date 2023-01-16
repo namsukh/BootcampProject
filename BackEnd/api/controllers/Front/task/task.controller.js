@@ -2,7 +2,7 @@ const task = require("../../../models/task.model");
 // const { param } = require("../../../routes/task.route");
 
 exports.allTask=async (req, res) => {
-    const {limit=10}=req.body;
+    const {limit=5}=req.body;
     const page=req.params.page
 
     try{

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
  const controller = require('../../controllers/Front/task/task.controller');
  const workerBucket = require('../../controllers/Front/task/worker/workerBucket');
+ const workerBucketPublic=require('../../controllers/Front/task/worker/workerBucketPublic')
 
 const controllerCreate = require('../../controllers/Front/task/createTask.controller');
 // const controllerDel = require('../controllers/Admin/task/delTask.controller');
@@ -18,6 +19,7 @@ const updateUser=require("../../controllers/Front/task/updateUser")
 router.route('/all/:page').get(verifyToken.verifyToken,controller.allTask);
 router.route('/workerBucket/:page').get(verifyToken.verifyToken,workerBucket.workerBucket);
 router.route('/findTask').post(verifyToken.verifyToken,findTask.findTask);
+router.route('/workerBucketPublic/:page').post(workerBucketPublic.workerBucketPublic);
 
 router.route('/createTask').post(verifyToken.verifyToken,controllerCreate.createTask);
 // router.route("/:id").delete(controllerDel.delTask);
